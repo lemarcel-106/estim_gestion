@@ -63,9 +63,9 @@ class EtudiantAdmin(ModelAdmin, ImportExportModelAdmin):
     resource_class = EtudiantResource
     import_form_class = ImportForm
     export_form_class = ExportForm
-    list_display = ('photo_etudiant', 'nom_prenom', 'classe', 'date_naissance', 'lieu_naissance', 'matricule', 'actif')
+    list_display = ('photo_etudiant', 'nom_prenom', 'classe', 'date_naissance', 'lieu_naissance', 'matricule', 'montant')
     list_filter = ('classe__nom', 'classe__filiere', 'classe__niveau', 'actif')
-    list_editable = ('actif',)
+    list_editable = ('montant',)
     list_per_page = 10
     ordering = ('nom_prenom',)
     list_display_links = ('nom_prenom','photo_etudiant')

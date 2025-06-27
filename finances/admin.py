@@ -5,10 +5,10 @@ from unfold.admin import ModelAdmin
 
 @admin.register(FraisScolarite)
 class DevoirAdmin(ModelAdmin):
-    list_display = ('etudiant', 'mois', 'montant', 'date_paiement', 'is_complet')
+    list_display = ('etudiant', 'mois', 'montant',  'reste_a_payer', 'date_paiement')
     search_fields = ['etudiant__nom_prenom']
     list_filter = ['mois', 'is_complet', 'etudiant__classe']
-    list_editable = ('montant', 'is_complet')
+    #list_editable = ('montant', 'is_complet')
     autocomplete_fields = ['etudiant']
 
     def send_notification(self, subject, message):
@@ -23,17 +23,17 @@ class DevoirAdmin(ModelAdmin):
     def save_model(self, request, obj, form, change):
         action = "mis à jour" if change else "ajouté"
         super().save_model(request, obj, form, change)
-        # self.send_notification(
-        #     subject=f"[ESTIM-ONLINE] Paiement {action} pour {obj.etudiant}",
-        #     message=(
-        #         f"Un paiement a été {action}.\n\n"
-        #         f"Étudiant : {obj.etudiant.nom_prenom}\n"
-        #         f"Mois : {obj.mois}\n"
-        #         f"Montant : {obj.montant}\n"
-        #         f"Complet : {'Oui' if obj.is_complet else 'Non'}\n"
-        #         f"Date : {obj.date_paiement}"
-        #     )
-        # )
+        self.send_notification(
+            subject=f"[ESTIM-ONLINE] Paiement {action} pour {obj.etudiant}",
+            message=(
+                f"Un paiement a été {action}.\n\n"
+                f"Étudiant : {obj.etudiant.nom_prenom}\n"
+                f"Mois : {obj.mois}\n"
+                f"Montant : {obj.montant}\n"
+                f"Complet : {'Oui' if obj.is_complet else 'Non'}\n"
+                f"Date : {obj.date_paiement}"
+            )
+        )
 
     def delete_model(self, request, obj):
         self.send_notification(

@@ -106,7 +106,7 @@ def list_etudiants_classe(request, classe_id: int):
             "matricule": etudiant.matricule,
             "nom_prenom": etudiant.nom_prenom,
             "classe_id": etudiant.classe.id,
-            "actif": etudiant.actif
+            "photo": request.build_absolute_uri(etudiant.photo.url) if etudiant.photo else None,
         }
         for etudiant in etudiants
     ]

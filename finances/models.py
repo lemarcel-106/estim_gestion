@@ -23,8 +23,8 @@ class FraisScolarite(models.Model):
     reste_a_payer = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name="Reste à payer", editable=False)
     mois = models.CharField(max_length=20, choices=MOIS_CHOICES)  # Ex: 'Janvier', 'Février', etc.
     montant = models.DecimalField(max_digits=10, decimal_places=2)
-    date_paiement = models.DateField(auto_now=True)
-    is_complet = models.BooleanField("Paiement total ? ", default=False)  # Indique si le paiement est complet ou non
+    date_paiement = models.DateField(auto_now=True, verbose_name="Date de dernier paiement", null=True, blank=True)  # Date du dernier paiement
+    is_complet = models.BooleanField("Paiement total ? ", default=False, editable=False)  # Indique si le paiement est complet ou non
 
 
     def save(self, *args, **kwargs):
