@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 12px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 80px;
+        }
+        .entete-text {
+            text-align: center;
+            font-size: 11px;
+        }
+        h1 {
+            margin-top: 20px;
+            text-align: center;
+        }
+        h2 {
+            margin-top: 25px;
+            font-size: 14px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 6px;
+            font-size: 11px;
+            text-align: left;
+        }
+        th {
+            background-color: #e6e6e6;
+        }
+        .footer {
+            margin-top: 60px;
+            font-size: 11px;
+        }
+
+
+        .entete-text {
+            text-align: center;
+            font-size: 11px;
+            margin-bottom: 20px;
+        }
+        .entete-text img {
+            height: 300px !important;
+            width: 100vw !important;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Logo -->
+    <img src="{{ logo_path }}" class="logo" />
+
+    <!-- En-tête -->
+   
+     <!-- En-tête -->
+     <div class="entete-text">
+        <img src="https://gestion.estim-online.com/static/header.png" />
+    </div>
+
+
+    <h1>Liste des étudiants admis</h1>
+
+    {% for item in resultats %}
+        <h2>Classe : {{ item.classe.nom }} | Session : {{ item.session.titre }}</h2>
+
+        {% if item.etudiants %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nom Prénom</th>
+                        <th>Classe</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for etu in item.etudiants %}
+                        <tr>
+                            <td>{{ etu.nom }}</td>
+                            <td>{{ etu.classe }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <p>Aucun étudiant admis pour cette classe.</p>
+        {% endif %}
+    {% endfor %}
+
+    <!-- Pied de page -->
+    <div class="footer">
+        <p>Par la Direction de l’Ecole Supérieure de Technologie, d’Ingénierie et de Management (ESTIM)</p>
+        <p>Fait à Brazzaville le, {{ date_du_jour|date:"d F Y" }}</p>
+        <p>Le Chef de Service de la Scolarité et des Examens</p>
+        <br><br>
+        <strong>Allégra Merveille Bénaïah KODIA MISSENGUI</strong>
+    </div>
+</body>
+</html>

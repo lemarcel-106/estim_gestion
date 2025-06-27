@@ -1,0 +1,18 @@
+
+.login-page-wrap {
+    background-image: url('../img/figure/login-bg.jpg');
+    background-repeat: no-repeat;
+    background-position: top center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100vh !important;
+    width: 100% !important;
+    background-size: cover !important;
+  }
+
+
+
+

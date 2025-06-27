@@ -1,0 +1,156 @@
+{% load static %}
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: DejaVu Sans, sans-serif; font-size: 12px; }
+
+        .header {
+            display: flex;
+            align-items: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            flex: 0 0 auto;
+            margin-right: 20px;
+        }
+
+        .logo img {
+            width: 100px;
+        }
+
+        .institution {
+            flex: 1;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .institution h1 {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        .institution h2 {
+            font-size: 14px;
+            margin: 5px 0;
+        }
+
+        .institution p {
+            margin: 2px 0;
+        }
+
+        h1.title {
+            text-align: center;
+            font-size: 16pt;
+            margin-top: 30px;
+        }
+
+        h2 { margin-top: 30px; font-size: 14pt; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 30px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            font-size: 11px;
+            padding: 6px;
+            vertical-align: top;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .footer {
+            margin-top: 60px;
+            font-size: 12px;
+            text-align: left;
+        }
+
+        .footer p {
+            margin: 4px 0;
+        }
+
+        .signature {
+            margin-top: 40px;
+        }
+
+        .date-align {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+
+        .entete-text {
+            text-align: center;
+            font-size: 11px;
+            margin-bottom: 20px;
+        }
+        .entete-text img {
+            height: 300px !important;
+            width: 100vw !important;
+        }
+    </style>
+</head>
+<body>
+
+     <!-- En-tête -->
+     <div class="entete-text">
+        <img src="https://gestion.estim-online.com/static/header.png" />
+    </div>
+
+
+    <h1 class="title">LISTE DES RATTRAPAGES PAR CLASSE</h1>
+
+    {% for bloc in donnees %}
+        <h2>Classe : {{ bloc.classe.nom }} | Session : {{ bloc.session.titre }}</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Étudiant</th>
+                    <th>Matières non validées (moyenne &lt; 10)</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for etudiant in bloc.etudiants %}
+                    <tr>
+                        <td>{{ etudiant.nom|upper }}</td>
+                        <td>
+                            {% if etudiant.matieres %}
+                                {% for mat in etudiant.matieres %}
+                                    {{ mat.matiere }} ({{ mat.moyenne_brute }})
+                                    {% if not forloop.last %}, {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                Aucune
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+
+    <div class="footer">
+        <p><strong>Par la Direction de l’Ecole Supérieure de Technologie, d’Ingénierie et de Management (ESTIM)</strong></p>
+
+        <div class="date-align">
+            <p>Fait à Brazzaville, le {{ date_du_jour|date:"d F Y" }}</p>
+        </div>
+
+        <div class="signature">
+            <p><strong>Le Chef de Service de la Scolarité et des Examens</strong></p>
+            <br><br>
+            <p><strong>Allégra Merveille Bénaïah KODIA MISSENGUI</strong></p>
+        </div>
+    </div>
+
+</body>
+</html>

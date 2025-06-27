@@ -1,0 +1,148 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <style>
+
+        @font-face {
+        font-family: 'Times New Roman';
+        src: url('http://127.0.0.1:8000/static/fonts/police_times.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        }
+
+        body {
+        font-family: 'Tinos', serif;
+        margin: 0 20px !important;
+        line-height: 1.5;
+        font-size: 1.35em;
+        }
+
+        .logo {
+            width: 90px;
+            position: absolute;
+            top: 40px;
+            left: 40px;
+        }
+
+        .school-info {
+            text-align: center;
+            font-size: 11px;
+        }
+
+        .school-info .name {
+            font-weight: bold;
+            font-size: 13px;
+        }
+
+        .school-info .approval {
+            color: red;
+            font-weight: bold;
+        }
+
+        .title {
+            text-align: center;
+            margin: 0 auto !important;
+            width: 80vw !important;
+            border: 3.5px solid black !important;
+            padding: 5px 5px !important;
+            font-weight: bold !important;
+            line-height: 1 !important;
+            font-size: 20px !important;
+        }
+
+        .reference {
+            color: red;
+            font-weight: bold;
+        }
+
+        .content {
+            margin-top: 45px;
+            text-align: justify;
+            font-size: 1.42em;
+        }
+
+        .footer {
+            margin-top: 0px !important;
+            text-align: right;
+        }
+
+        .signature {
+            margin-top: 2rem !important;
+            text-align: right;
+        }
+
+        .signature .name {
+            font-weight: bold;
+        }
+
+        .entete-text {
+            text-align: center;
+            font-size: 11px;
+            margin-bottom: 20px;
+        }
+        .entete-text img {
+            height: 300px !important;
+            width: 100vw !important;
+        }
+        
+    </style>
+</head>
+<body>
+
+    <!-- En-tête -->
+    <div class="entete-text">
+        <img src="http://127.0.0.1:8000/static/header.png" height="300" />
+    </div>
+
+    <!-- Titre -->
+    <h3 class="title">ATTESTATION DE FRÉQUENTATION</h3>
+
+    <!-- Référence -->
+    <!-- Référence -->
+    <p class="reference">N°{{ numero }}/ESTIM/DG/{{ annee|slice:"2:4" }}-{{ annee|slice:"7:" }}</p>
+
+    <!-- Contenu principal -->
+    <div class="content">
+        Nous soussigné, <strong>Ecole Supérieure de Technologie, d’Ingénierie et de Management (ESTIM)</strong>, attestons par la présente que M/Mme
+        <strong>{{ nom_complet }}</strong><br>
+        Né(e) le <strong>{{ date_naissance }}</strong> à <strong>{{ lieu_naissance }}</strong>, fréquente régulièrement notre établissement au titre de l’année académique <strong>{{ annee_academique }}</strong>.<br><br>
+
+        
+        Option : <strong>{{ option }}</strong><br>
+        Niveau : <strong>{{ niveau }}</strong><br>
+        Photo d'identité : <br><br>
+        {% if photo_url %}
+            <img src="{{ photo_url }}" alt="Photo d'identité" style="width: 90px; height: auto;">
+        {% else %}
+            Aucune photo d'identité fournie.
+        {% endif %}
+        <br>
+        <br>
+        <br>
+        En foi de quoi cette attestation de fréquentation lui est établie pour servir et valoir ce que de droit.
+
+        <br><br>
+        <img src="{{ qr_code_url }}" width="80" height="80" alt="QR Code" />
+
+    </div>
+
+
+
+    <!-- Pied de page -->
+    <div class="footer">
+        Fait à Brazzaville, le {{ date_du_jour|date:"d F Y" }}
+        <br>
+        <span style="font-size: 15px;">Le Directeur Général</span><br>
+        <br>    
+        <br>    
+        <br>    
+        <br>    
+        <br>    
+        <strong style="font-size: 16px;">Wilfrid NGOYI NZAMBA</strong>
+    </div>
+
+</body>
+</html>

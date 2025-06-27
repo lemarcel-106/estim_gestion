@@ -1,0 +1,32 @@
+/* Overlay global sur toute la page */
+.spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.7);  /* léger voile blanc */
+    backdrop-filter: blur(2px); /* flou derrière pour l’effet overlay */
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Spinner circulaire */
+  .spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid #e0e0e0;
+    border-top: 6px solid #3498db;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  
+  /* Animation de rotation */
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
