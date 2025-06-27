@@ -80,6 +80,7 @@ class Classe(models.Model):
 class Etudiant(models.Model):
     nom_prenom = models.CharField(max_length=100)
     classe = models.ForeignKey("Classe", on_delete=models.CASCADE, related_name='etudiants')
+    montant = models.DecimalField(max_digits=10, decimal_places=1, default=0.0, help_text="Montant des frais de scolarité")
     date_naissance = models.DateField(null=True, blank=True)
     lieu_naissance = models.CharField(max_length=100, null=True, blank=True, default="")
     matricule = models.CharField(max_length=20, unique=True, blank=True, editable=False)
@@ -103,10 +104,22 @@ class Etudiant(models.Model):
             matricule = f"{randint(1000, 9999)}"
         return matricule
 
+    def check_finance(self):
+        etudiant_data = Etudiant.objects.get(id=self.id)
+        if etudiant_data.montant != self.montant:
+            finances = self.frais_scolarite.all()
+            for finance in finances:
+                finances.reste_a_payer = self.montant - finance.montant
+                finance.save()
+
     def save(self, *args, **kwargs):
+        
         if not self.id:
             self.annee_scolaire = "2024-2025"
             self.matricule = self.generate_unique_matricule() if not self.matricule else self.matricule
+
+        if self.id: 
+            self.check_finance()
         super().save(*args, **kwargs)
         
 

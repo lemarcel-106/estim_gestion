@@ -51,7 +51,7 @@ class EtudiantResource(resources.ModelResource):
     class Meta:
         model = Etudiant
         fields = ('nom_prenom', 'classe', 'date_naissance', 'lieu_naissance')
-        import_id_fields = ('nom_prenom', 'classe')  # Pour mise à jour des lignes existantes
+        import_id_fields = ('nom_prenom', 'classe', 'montant')  # Pour mise à jour des lignes existantes
         skip_unchanged = True
         report_skipped = True
 

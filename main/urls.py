@@ -32,8 +32,8 @@ urls_admin = [
 
 
 urlpatterns = [
-    path('', lambda request: redirect('admin/')),
-    # path('', include('web_admin.urls')),
+    # path('', lambda request: redirect('admin/')),
+    path('', include('web_admin.urls')),
     path("robots.txt", robots_txt),
     path('admin/', admin.site.urls),
     path('api/', include('gestion_des_resultats.urls')),

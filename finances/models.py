@@ -20,10 +20,18 @@ class FraisScolarite(models.Model):
         ('Décembre', 'Décembre'),
     ]
     etudiant = models.ForeignKey(Etudiant, on_delete=models.CASCADE, related_name='frais_scolarite')
+    reste_a_payer = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, verbose_name="Reste à payer", editable=False)
     mois = models.CharField(max_length=20, choices=MOIS_CHOICES)  # Ex: 'Janvier', 'Février', etc.
     montant = models.DecimalField(max_digits=10, decimal_places=2)
     date_paiement = models.DateField(auto_now=True)
     is_complet = models.BooleanField("Paiement total ? ", default=False)  # Indique si le paiement est complet ou non
+
+
+    def save(self, *args, **kwargs):
+        self.reste_a_payer = self.etudiant.montant - self.montant
+        self.full_clean()  # Appelle `clean()` avant de sauvegarder
+        super().save(*args, **kwargs)
+
 
 
     class Meta:

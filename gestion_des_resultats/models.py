@@ -58,8 +58,6 @@ class ParametreResultat(models.Model):
             raise ValidationError("Il ne peut y avoir qu'une seule instance de ParametreResultat.")
 
     def save(self, *args, **kwargs):
-        import time
-        time.sleep(2)
         self.full_clean()  # Appelle `clean()` avant de sauvegarder
         super().save(*args, **kwargs)
 
